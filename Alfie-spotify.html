@@ -89,6 +89,54 @@
             </div>
         </div>
     </div>
+<div class="video-shelf-container">
+    <div class="shelf-header">
+        <h5>Music videos</h5>
+    </div>
+
+    <div class="video-scroll-wrapper">
+        <button class="scroll-btn left" id="scrollLeftBtn">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <button class="scroll-btn right" id="scrollRightBtn">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="video-scroll-row" id="videoRow">
+            <div class="video-thumb-card">
+                <div class="video-visual">
+                    <img src="Utils/pexels-irma-sjachlan-2157444897-35626815.jpg">
+                    <div class="video-play-overlay"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="video-meta">
+                    <p class="v-title">Title 1</p>
+                    <p class="v-artist">Artist 1</p>
+                </div>
+            </div>
+            <div class="video-thumb-card">
+                <div class="video-visual">
+                    <img src="Utils/pexels-cottonbro-7090868.jpg">
+                    <div class="video-play-overlay"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="video-meta">
+                    <p class="v-title">Title 2</p>
+                    <p class="v-artist">Artist 2</p>
+                </div>
+            </div>
+            <div class="video-thumb-card">
+                <div class="video-visual">
+                    <img src="Utils/pexels-cottonbro-3944092.jpg">
+                    <div class="video-play-overlay"><i class="fa-solid fa-play"></i></div>
+                </div>
+                <div class="video-meta">
+                    <p class="v-title">Title 3</p>
+                    <p class="v-artist">Artist 3</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     
     <div class="bottom-spacer"></div>
 </aside>
@@ -125,6 +173,22 @@
         </div>
     </footer>
 </div>
+
+<script>
+    const row = document.getElementById('videoRow');
+    const btnRight = document.getElementById('scrollRightBtn');
+    const btnLeft = document.getElementById('scrollLeftBtn');
+
+    // Scroll Right
+    btnRight.addEventListener('click', () => {
+        row.scrollBy({ left: 200, behavior: 'smooth' });
+    });
+
+    // Scroll Left (The "Back" button)
+    btnLeft.addEventListener('click', () => {
+        row.scrollBy({ left: -200, behavior: 'smooth' });
+    });
+</script>
 
 </body>
 </html>

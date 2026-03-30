@@ -420,6 +420,148 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
 .sidebar-right:hover .share-icon { opacity: 1; }
 
 
+/* =========================================
+   VIDEO SHELF - FINAL SCROLLABLE VERSION
+   ========================================= */
+
+.video-shelf-container {
+    margin: 24px 16px;
+    padding-top: 10px;
+}
+
+.shelf-header h5 {
+    font-size: 14px;
+    margin-bottom: 12px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.video-scroll-wrapper {
+    position: relative; /* Container for absolute buttons */
+}
+
+.video-scroll-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto; /* Required for scroll functionality */
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+/* Hide scrollbar */
+.video-scroll-row::-webkit-scrollbar { display: none; }
+
+/* --- THE SMALLER SCROLL BUTTONS --- */
+.scroll-btn {
+    position: absolute;
+    top: 60px; /* Aligned below the play button center */
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+    color: white;
+    z-index: 100;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* Hidden until wrapper hover */
+    transition: opacity 0.3s, background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.scroll-btn.left { left: -10px; }
+.scroll-btn.right { right: 5px; }
+
+/* Reveal buttons on wrapper hover */
+.video-scroll-wrapper:hover .scroll-btn {
+    opacity: 1;
+}
+
+.scroll-btn:hover {
+    background: #333;
+    transform: scale(1.1);
+}
+
+.scroll-btn i {
+    font-size: 12px;
+    color: white !important;
+}
+
+/* --- VIDEO CARD STYLING --- */
+.video-thumb-card {
+    min-width: 180px; 
+    max-width: 180px;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    flex-shrink: 0; /* Crucial: stops cards from squishing */
+}
+
+.video-thumb-card:hover {
+    background-color: #282828; /* Gray highlight */
+}
+
+.video-visual {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: #333;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+
+.video-visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* PLAY BUTTON OVERLAY */
+.video-play-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.video-thumb-card:hover .video-play-overlay {
+    opacity: 1;
+}
+
+.video-play-overlay i {
+    color: white;
+    font-size: 24px;
+}
+
+/* TEXT INFO */
+.video-meta {
+    margin-top: 10px;
+}
+
+.v-title {
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.v-artist {
+    font-size: 11px;
+    color: #b3b3b3;
+    margin-top: 4px;
+}
 
 /* 6. PLAYER BAR */
 .player-bar { grid-area: bottom-play; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
