@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alphy Player - Desktop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="grid-container">
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <i class="fa-solid fa-ellipsis"></i>
+            <div class="nav-arrows">
+                <i class="fa-solid fa-chevron-left"></i>
+                <i class="fa-solid fa-chevron-right"></i>
+            </div>
+        </div>
+        <div class="top-bar-center">
+            <div class="home-button-wrapper"><i class="fa-solid fa-house"></i></div>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="What do you want to play?">
+                <div class="search-divider"></div>
+                <i class="fa-solid fa-box-archive"></i>
+            </div>
+        </div>
+        <div class="top-bar-right">
+            <i class="fa-regular fa-bell"></i>
+            <i class="fa-solid fa-users"></i>
+            <div class="profile-circle">A</div>
+        </div>
+    </header>
+
+    <aside class="sidebar-left">
+        <div class="sidebar-top-controls">
+            <div class="library-toggle-group">
+                <i class="fa-solid fa-book-open" id="library-book"></i>
+                <i class="fa-solid fa-right-to-bracket" id="expand-bracket" title="Expand Library"></i>
+            </div>
+            <i class="fa-solid fa-plus" title="Create Playlist"></i>
+        </div>
+    </aside>
+  
+    <main class="main-content">
+        <div class="content-spacer">
+            <h3>Good Afternoon</h3>
+        </div>
+    </main>
+  
+<aside class="sidebar-right">
+    <div class="media-content-block">
+        <video autoplay muted loop class="current-video">
+            <source src="Utils/5739720-hd_1920_1080_24fps.mp4" type="video/mp4">
+        </video>
+
+        <div class="hero-top-controls">
+            <div class="pill-container">
+                <i class="fa-solid fa-right-to-bracket collapse-trigger" title="Collapse"></i>
+                <div class="liked-songs-pill"><span>Liked Songs</span></div>
+            </div>
+
+            <div class="hero-utility-icons">
+                <i class="fa-solid fa-ellipsis"></i>
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+        </div>
+
+        <div class="floating-track-info">
+            <div class="track-text-group">
+                <h2 class="song-title">ATTENTION!</h2>
+                <p class="artist-subtitle">XXXTENTACION</p>
+            </div>
+            <div class="track-icons-group">
+                <i class="fa-solid fa-circle-check green-tick"></i>
+                <i class="fa-solid fa-arrow-up-from-bracket"></i>
+            </div>
+        </div>
+        
+        <div class="lyrics-overlay-box">
+            <div class="lyrics-content">
+                <h5>Lyrics preview</h5>
+                <p class="lyrics-text">
+                    'Tention, hey, 'tention, hey <br>
+                    <span>When you see me, please stand at attention, hey</span>
+                </p>
+                <div class="show-more-wrapper">
+                    <button class="show-more-btn">Show more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="bottom-spacer"></div>
+</aside>
+  
+    <footer class="player-bar">
+        <div class="now-playing-info">
+            <div class="mini-art"></div> 
+            <div class="track-text">
+                <p class="track-name">ATTENTION!</p>
+                <p class="artist-name">XXXTENTACION</p>
+            </div>
+            <i class="fa-regular fa-heart"></i>
+        </div>
+
+        <div class="player-controls">
+            <div class="control-buttons">
+                <i class="fa-solid fa-shuffle"></i>
+                <i class="fa-solid fa-backward-step"></i>
+                <i class="fa-solid fa-circle-play fa-2xl" id="play-main"></i>
+                <i class="fa-solid fa-forward-step"></i>
+                <i class="fa-solid fa-repeat"></i>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-rail"><div class="progress-fill"></div></div>
+            </div>
+        </div>
+
+        <div class="player-utilities">
+            <i class="fa-solid fa-list-ul"></i>
+            <div class="volume-bar-container">
+                <i class="fa-solid fa-volume-high"></i>
+                <div class="volume-rail"><div class="volume-fill"></div></div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>

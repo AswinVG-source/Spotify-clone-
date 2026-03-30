@@ -1,0 +1,383 @@
+/* =========================================
+   ALPHY PLAYER - FINAL WINDOWS CLONE SPEC
+   ========================================= */
+
+:root {
+    --sidebar-width: 70px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflow: hidden; }
+
+/* 1. MASTER GRID */
+.grid-container {
+    display: grid;
+    height: 100vh;
+    width: 100vw;
+    grid-template-columns: var(--sidebar-width) 1fr 350px; 
+    grid-template-rows: 64px 1fr 90px; 
+    grid-template-areas: 
+        "top-header  top-header  top-header"
+        "left-side   main-view   right-side"
+        "bottom-play bottom-play bottom-play";
+    gap: 8px;
+    padding: 8px;
+}
+
+/* 2. PANELS */
+.sidebar-left, .main-content, .sidebar-right {
+    background-color: #121212;
+    border-radius: 8px;
+    overflow-y: auto;
+    min-height: 0;
+}
+
+/* 3. TOP BAR */
+.top-bar 
+{   grid-area: top-header;
+    display: grid; 
+    grid-template-columns: var(--sidebar-width) 1fr 350px; align-items: center; 
+    padding: 0 16px; 
+}
+.top-bar-left, .nav-arrows, .top-bar-center, .top-bar-right {                               
+    display: flex; 
+    align-items: center; 
+}
+
+.top-bar-left { gap: 20px; }
+.nav-arrows { gap: 15px; }
+.top-bar-center { justify-content: center; gap: 8px; }
+
+.home-button-wrapper 
+{   background: #1f1f1f; 
+    width: 48px; 
+    height: 48px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+.search-container { background: #1f1f1f; border-radius: 500px; padding: 0 16px; display: flex; align-items: center; height: 48px; width: 100%; max-width: 450px; }
+.search-container input { background: transparent; border: none; color: white; margin-left: 12px; flex: 1; outline: none; }
+.search-divider { width: 1px; height: 24px; background: #333; margin: 0 12px; }
+.top-bar-right { justify-content: flex-end; gap: 20px; }
+.profile-circle { background: #f57c00; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; position: relative; }
+.profile-circle::after { content: ''; position: absolute; top: 0; right: -2px; width: 10px; height: 10px; background: #4cb3ff; border: 2px solid #000; border-radius: 50%; }
+
+/* 4. SIDEBAR LEFT */
+.sidebar-left { grid-area: left-side; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
+.sidebar-top-controls { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.library-toggle-group { position: relative; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+#expand-bracket { position: absolute; opacity: 0; transition: 0.2s; }
+.library-toggle-group:hover #library-book { opacity: 0; }
+.library-toggle-group:hover #expand-bracket { opacity: 1; }
+
+/* 5. SIDEBAR RIGHT (The Masterpiece) */
+.sidebar-right {
+    grid-area: right-side;
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+}
+
+.right-hero-art {
+    width: 100%;
+    height: 350px;
+    background-image: url('https://via.placeholder.com/400x400/222/fff?text=Album+Art'); /* Placeholder */
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 8px 8px 0 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(18,18,18,1) 100%);
+    padding: 16px;
+}
+
+.hero-top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.liked-songs-pill {
+    background: rgba(0,0,0,0.6);
+    padding: 6px 12px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0; /* Hidden by default */
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+}
+
+.sidebar-right:hover .liked-songs-pill {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.hero-dots i { margin-left: 15px; }
+
+.right-track-details { padding: 16px; }
+
+.right-track-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.track-titles h1 { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
+
+.track-titles p { color: #b3b3b3; font-weight: 600; font-size: 16px; }
+
+.track-actions { display: flex; align-items: center; gap: 15px; font-size: 18px; }
+
+#share-reveal { opacity: 0; transition: 0.2s; }
+
+.sidebar-right:hover #share-reveal { opacity: 1; }
+
+.fa-circle-check {font-size:20px; color: #1ed760;margin-right:15px; }
+
+.fa-arrow-up-from-bracket{
+    font-size: 20px;
+}
+
+
+/* 1. MASTER GRID */
+.grid-container {
+    display: grid; height: 100vh; width: 100vw;
+    grid-template-columns: var(--sidebar-width) 1fr 350px; 
+    grid-template-rows: 64px 1fr 90px; 
+    grid-template-areas: "top-header top-header top-header" "left-side main-view right-side" "bottom-play bottom-play bottom-play";
+    gap: 8px; padding: 8px;
+}
+.sidebar-left, .main-content, .sidebar-right { background-color: #121212; border-radius: 8px; overflow-y: auto; min-height: 0; }
+
+/* 5. SIDEBAR RIGHT - UPDATED SCROLL LOGIC */
+.sidebar-right {
+    grid-area: right-side;
+    display: flex;
+    flex-direction: column;
+    background-color: #121212;
+    overflow-y: auto; /* Enable master scroll */
+    overflow-x: hidden;
+}
+
+/* This container holds the video and lyrics together as one block */
+.media-content-block {
+    width: 100%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.current-video {
+    width: 100%;
+    height: 100vh; /* Video fills the first view */
+    object-fit: cover;
+    display: block;
+}
+
+/* Floating Overlays */
+.top-left-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 15;
+}
+
+.floating-track-info {
+    position: absolute;
+    top: 65vh; /* Positioned relative to video height */
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 12;
+}
+
+.song-title { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
+.artist-subtitle { font-size: 18px; color: white; font-weight: 600; }
+
+/* LYRICS BOX - 30px PEAK LOGIC */
+.lyrics-overlay-box {
+    /* Pushes the box so it starts right after the artist name area */
+    margin-top: -180px; 
+    margin-left: 16px;
+    margin-right: 16px;
+    position: relative;
+    z-index: 11;
+    
+    background-color: rgba(106, 4, 15, 0.95);
+    padding: 24px;
+    border-radius: 12px;
+    
+    /* This makes the box peek 30px off the bottom of the first view */
+    margin-bottom: -30px; 
+}
+
+.lyrics-content h5 { font-size: 16px; margin-bottom: 15px; color: #fff; }
+
+.lyrics-text { 
+    font-size: 28px; /* Bigger Font as requested */
+    font-weight: 800; 
+    color: #000; 
+    line-height: 1.2; 
+    margin-bottom: 25px; 
+}
+
+.lyrics-text span { color: #fff; }
+
+/* SHOW MORE - ALIGNED RIGHT */
+.show-more-wrapper {
+    display: flex;
+    justify-content: flex-end; /* Shits button to the right */
+}
+
+.show-more-btn {
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.show-more-btn:hover {
+    background-color: #1ed760;
+    color: black;
+}
+
+/* --- TOP INTERACTIVE BAR --- */
+.hero-top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 16px 20px;
+}
+
+/* LEFT SIDE: Collapse Trigger Logic */
+.pill-container {
+    display: flex;
+    align-items: center;
+    gap: 0; /* Starts with no gap */
+    transition: gap 0.3s ease;
+}
+
+.collapse-trigger {
+    opacity: 0;
+    width: 0;
+    font-size: 18px; /* Bigger icon */
+    transition: all 0.3s ease;
+    color:black;
+}
+
+/* Reveal Collapse Icon on Sidebar Hover */
+.sidebar-right:hover .collapse-trigger {
+    opacity: 1;
+    width: 30px;
+    margin-right: 5px;
+}
+
+.liked-songs-pill {
+    background: rgba(0,0,0,0.7);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* RIGHT SIDE: Dots & X Logic */
+.hero-utility-icons {
+    display: flex;
+    gap: 20px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease;
+}
+
+.hero-utility-icons i {
+    font-size: 20px; /* Bigger than text */
+    color: black;
+}
+
+.hero-utility-icons i:hover {
+    color: black;
+    transform: scale(1.1);
+}
+
+/* Reveal Right Icons on Sidebar Hover */
+.sidebar-right:hover .hero-utility-icons {
+    opacity: 1;
+}
+
+/* Add a very long spacer at the end to make it scrollable */
+.bottom-spacer {
+    height: 800px;
+    width: 100%;
+}
+
+/* 2. TOP BAR & SIDEBAR LEFT */
+.top-bar { grid-area: top-header; display: grid; grid-template-columns: var(--sidebar-width) 1fr 350px; align-items: center; padding: 0 16px; }
+.top-bar-center { display: flex; justify-content: center; gap: 8px; }
+.home-button-wrapper { background: #1f1f1f; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.search-container { background: #1f1f1f; border-radius: 500px; padding: 0 16px; display: flex; align-items: center; height: 48px; width: 100%; max-width: 450px; }
+.search-container input { background: transparent; border: none; color: white; margin-left: 12px; flex: 1; outline: none; }
+.top-bar-right { display: flex; justify-content: flex-end; gap: 20px; align-items: center; }
+.profile-circle { background: #f57c00; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; position: relative; }
+
+
+/* Collapse Icon Logic: Before pill on hover */
+.pill-container { display: flex; align-items: center; gap: 0; transition: gap 0.3s ease; }
+.collapse-trigger { opacity: 0; width: 0; transition: 0.3s ease; font-size: 14px; }
+.liked-songs-pill { background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.sidebar-right:hover .collapse-trigger { opacity: 1; width: 30px; }
+.sidebar-right:hover .pill-container { gap: 8px; }
+
+.right-track-header { padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; }
+.track-titles h1 { font-size: 22px; font-weight: 800; }
+.share-icon { opacity: 0; transition: 0.2s; }
+.sidebar-right:hover .share-icon { opacity: 1; }
+
+
+
+/* 6. PLAYER BAR */
+.player-bar { grid-area: bottom-play; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+.now-playing-info { display: flex; align-items: center; gap: 12px; width: 30%; }
+.mini-art { width: 56px; height: 56px; background: #282828; border-radius: 4px; }
+.track-name { font-size: 14px; font-weight: 600; }
+.artist-name { font-size: 11px; color: #b3b3b3; }
+.player-controls { flex: 1; max-width: 722px; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.control-buttons { display: flex; align-items: center; gap: 25px; }
+#play-main { color: #1ed760; font-size: 35px; }
+.progress-bar-container { width: 100%; display: flex; align-items: center; gap: 10px; font-size: 11px; color: #b3b3b3; }
+.progress-rail { flex: 1; height: 4px; background: #4d4d4d; border-radius: 2px; }
+.progress-fill { width: 30%; height: 100%; background: #1ed760; border-radius: 2px; }
+.player-utilities { width: 30%; display: flex; align-items: center; justify-content: flex-end; gap: 15px; }
+.volume-bar-container { display: flex; align-items: center; gap: 8px; width: 100px; }
+.volume-rail { flex: 1; height: 4px; background: #4d4d4d; border-radius: 2px; }
+.volume-fill { width: 60%; height: 100%; background: #fff; border-radius: 2px; }
+
+/* UTILS */
+i { color: #b3b3b3; cursor: pointer; transition: 0.2s; }
+i:hover { color: #fff; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-thumb { background-color: #4d4d4d; border: 4px solid transparent; background-clip: padding-box; border-radius: 10px; }
