@@ -5,177 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Song Info Component</title>
 <style>
-.artist-shelf-container {
-    padding: 16px;
-    position: relative;
+:root {
+    --sidebar-left-width: 280px;
+    --sidebar-left-collapsed: 72px; /* Spotify's icon-only width */
 }
 
-.artist-scroll-wrapper {
-    position: relative; /* Anchor for absolute buttons */
+/* Update the Grid to handle Left Collapse */
+.grid-container {
+    display: grid;
+    /* We use the variables here so they can be changed via JS/Classes */
+    grid-template-columns: var(--sidebar-left-width) 1fr var(--right-sidebar-width);
+    grid-template-rows: 64px 1fr 90px;
+    transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* State: Left Sidebar Collapsed */
+body.left-sidebar-collapsed .grid-container {
+    grid-template-columns: var(--sidebar-left-collapsed) 1fr var(--right-sidebar-width);
+}
+
+/* State: BOTH Sidebars Collapsed (Main Area is Massive) */
+body.left-sidebar-collapsed.right-sidebar-collapsed .grid-container {
+    grid-template-columns: var(--sidebar-left-collapsed) 1fr 12px;
+}
+
+/* --- Left Sidebar Styling --- */
+.sidebar-left {
+    grid-area: left-side;
+    overflow-x: hidden;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hide text labels when collapsed */
+.nav-text {
+    white-space: nowrap;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+}
+
+body.left-sidebar-collapsed .nav-text {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Style the library items to look like Spotify icons */
+.library-item, .library-toggle-group, .add-playlist {
     display: flex;
     align-items: center;
+    gap: 16px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s;
 }
 
-/* Positioning the buttons specifically for the Artist Circles */
-.artist-scroll-wrapper .scroll-btn {
-    position: absolute;
-    top: 50px; /* Aligns them with the vertical center of the 100px circles */
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.7);
-    border: none;
-    color: white;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    cursor: pointer;
+.library-item:hover { background: #282828; }
+
+.item-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0; /* Prevents icon from squishing */
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.artist-scroll-wrapper .scroll-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    transform: scale(1.1);
-}
-
-.artist-scroll-wrapper .scroll-btn.left { left: -10px; }
-.artist-scroll-wrapper .scroll-btn.right { right: -10px; }
-
-.artist-scroll-row {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding-bottom: 10px;
-    width: 100%;
-}
-
-/* Hide scrollbar for Chrome/Safari/Brave */
-.artist-scroll-row::-webkit-scrollbar {
-    display: none;
-}
-
-.artist-circle-card {
-    flex: 0 0 110px; /* Width of the "hit area" */
-    text-align: center;
-    transition: background 0.3s;
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.artist-circle-card:hover {
-    background-color: #282828;
-}
-
-.artist-avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    background: #282828;
     overflow: hidden;
-    margin-bottom: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-.artist-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.artist-card-name {
-    font-size: 13px;
-    font-weight: 700;
-    color: #fff;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+.item-icon img { width: 100%; height: 100%; object-fit: cover; }
+.liked-bg { background: linear-gradient(135deg, #450af5, #c4efd9); }
 </style>
 </head>
-<body>
-    
-    <aside class="sidebar-right">
-
-<div class="artist-shelf-container">
-    <div class="shelf-header">
-        <h5>Fans also like</h5>
-    </div>
-
-    <div class="artist-scroll-wrapper">
-        <button class="scroll-btn left" id="artistScrollLeft">
-            <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button class="scroll-btn right" id="artistScrollRight">
-            <i class="fa-solid fa-chevron-right"></i>
-        </button>
-
-        <div class="artist-scroll-row" id="artistRow">
-            <div class="artist-circle-card">
-                <div class="artist-avatar">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1" alt="Artist">
-                </div>
-                <p class="artist-card-name">Seedhe Maut</p>
-                <p class="artist-card-type">Artist</p>
+    <body>
+        
+<aside class="sidebar-left">
+    <div class="sidebar-left-content">
+        <div class="sidebar-top-controls">
+            <div class="library-toggle-group">
+                <i class="fa-solid fa-book-open" id="library-toggle-btn"></i>
+                <span class="nav-text">Your Library</span>
             </div>
-            <div class="artist-circle-card">
-                <div class="artist-avatar">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2" alt="Artist">
-                </div>
-                <p class="artist-card-name">Krsna</p>
-                <p class="artist-card-type">Artist</p>
-            </div>
-            <div class="artist-circle-card">
-                <div class="artist-avatar">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3" alt="Artist">
-                </div>
-                <p class="artist-card-name">Prabh Deep</p>
-                <p class="artist-card-type">Artist</p>
-            </div>
-            <div class="artist-circle-card">
-                <div class="artist-avatar">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=4" alt="Artist">
-                </div>
-                <p class="artist-card-name">Raftaar</p>
-                <p class="artist-card-type">Artist</p>
-            </div>
-            <div class="artist-circle-card">
-                <div class="artist-avatar">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=5" alt="Artist">
-                </div>
-                <p class="artist-card-name">Yashraj</p>
-                <p class="artist-card-type">Artist</p>
-            </div>
-            <div class="artist-circle-card">
-                <div class="artist-avatar">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=6" alt="Artist">
-                </div>
-                <p class="artist-card-name">Stan</p>
-                <p class="artist-card-type">Artist</p>
+            <div class="add-playlist">
+                <i class="fa-solid fa-plus"></i>
+                <span class="nav-text">Create Playlist</span>
             </div>
         </div>
+
+        <div class="library-list">
+            <div class="library-item">
+                <div class="item-icon liked-bg"><i class="fa-solid fa-heart"></i></div>
+                <span class="nav-text">Liked Songs</span>
+            </div>
+            <div class="library-item">
+                <div class="item-icon"><img src="Utils/playlist1.jpg"></div>
+                <span class="nav-text">Hip Hop Mix</span>
+            </div>
+            </div>
     </div>
-</div>
+</aside>
 
-    </aside>
+        <script>
 
+            const leftToggleBtn = document.getElementById('library-toggle-btn');
 
-    <script>
+            leftToggleBtn.addEventListener('click', () => {
+                // Toggle the class on the body
+                body.classList.toggle('left-sidebar-collapsed');
+            });
 
-        const artistRow = document.getElementById('artistRow');
-        const artistBtnRight = document.getElementById('artistScrollRight');
-        const artistBtnLeft = document.getElementById('artistScrollLeft');
-
-        // Scroll distance should be roughly 2-3 cards per click
-        const scrollAmount = 240; 
-
-        artistBtnRight.addEventListener('click', () => {
-            artistRow.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-        });
-
-        artistBtnLeft.addEventListener('click', () => {
-            artistRow.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-        });
-    </script>
-</body>
+        </script>
+    </body>
 </html>

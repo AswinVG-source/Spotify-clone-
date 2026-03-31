@@ -51,6 +51,11 @@
     </main>
   
 <aside class="sidebar-right">
+
+    <div class="sidebar-right-collapsed-bar" id="expand-right-trigger">
+        <i class="fa-solid fa-chevron-left"></i>
+    </div>
+
     <div class="media-content-block">
         <img src="Utils/pexels-cottonbro-7087174.jpg" alt="Song Art" class="current-media">
 
@@ -323,7 +328,20 @@
     artistBtnLeft.addEventListener('click', () => {
         artistRow.scrollBy({ left: -300, behavior: 'smooth' });
     });
+    // Grab the elements
+    const body = document.body;
+    const collapseBtn = document.querySelector('.collapse-trigger'); // Your bracket icon
+    const expandBtn = document.getElementById('expand-right-trigger'); // The thin bar icon
 
+    // 1. Function to Collapse
+    collapseBtn.addEventListener('click', () => {
+        body.classList.add('right-sidebar-collapsed');
+    });
+
+    // 2. Function to Expand
+    expandBtn.addEventListener('click', () => {
+        body.classList.remove('right-sidebar-collapsed');
+    });
 
 </script>
 
