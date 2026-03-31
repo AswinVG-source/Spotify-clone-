@@ -1,25 +1,34 @@
 /* =========================================
-   ALPHY PLAYER - FINAL WINDOWS CLONE SPEC
+   1. GLOBAL & ALL-PURPOSE STYLES
    ========================================= */
 
 :root {
     --sidebar-width: 70px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
 
-body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflow: hidden; }
+body {
+    background-color: #000;
+    color: #fff;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
 
-
-
-/* 1. MASTER GRID */
+/* Master Layout Grid */
 .grid-container {
     display: grid;
     height: 100vh;
     width: 100vw;
-    grid-template-columns: var(--sidebar-width) 1fr 350px; 
-    grid-template-rows: 64px 1fr 90px; 
-    grid-template-areas: 
+    grid-template-columns: var(--sidebar-width) 1fr 350px;
+    grid-template-rows: 64px 1fr 90px;
+    grid-template-areas:
         "top-header  top-header  top-header"
         "left-side   main-view   right-side"
         "bottom-play bottom-play bottom-play";
@@ -27,39 +36,83 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     padding: 8px;
 }
 
-/* 2. PANELS */
-.sidebar-left, .main-content, .sidebar-right {
+/* General Panel Styling */
+.sidebar-left,
+.main-content,
+.sidebar-right {
     background-color: #121212;
     border-radius: 8px;
     overflow-y: auto;
     min-height: 0;
 }
 
-/* 3. TOP BAR */
-.top-bar 
-{   grid-area: top-header;
-    display: grid; 
-    grid-template-columns: var(--sidebar-width) 1fr 350px; align-items: center; 
-    padding: 0 16px; 
-}
-.top-bar-left, .nav-arrows, .top-bar-center, .top-bar-right {                               
-    display: flex; 
-    align-items: center; 
+/* Scrollbar Utilities */
+::-webkit-scrollbar {
+    width: 12px;
 }
 
-.top-bar-left { gap: 20px; }
-.nav-arrows { gap: 15px; }
-.top-bar-center { justify-content: center; gap: 8px; }
+::-webkit-scrollbar-thumb {
+    background-color: #4d4d4d;
+    border: 4px solid transparent;
+    background-clip: padding-box;
+    border-radius: 10px;
+}
 
-.home-button-wrapper 
-{   background: #1f1f1f; 
-    width: 48px; 
-    height: 48px; 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
+/* Global Icon Defaults */
+i {
+    color: #b3b3b3;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+i:hover {
+    color: #fff;
+}
+
+
+/* =========================================
+   2. HEADER (TOP BAR)
+   ========================================= */
+
+.top-bar {
+    grid-area: top-header;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr 350px;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.top-bar-left,
+.nav-arrows,
+.top-bar-center,
+.top-bar-right {
+    display: flex;
+    align-items: center;
+}
+
+.top-bar-left {
+    gap: 20px;
+}
+
+.nav-arrows {
+    gap: 15px;
+}
+
+.top-bar-center {
+    justify-content: center;
+    gap: 8px;
+}
+
+.home-button-wrapper {
+    background: #1f1f1f;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
+
 .search-container {
     background: #1f1f1f;
     border-radius: 500px;
@@ -88,8 +141,10 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
 }
 
 .top-bar-right {
+    display: flex;
     justify-content: flex-end;
     gap: 20px;
+    align-items: center;
 }
 
 .profile-circle {
@@ -116,7 +171,11 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     border-radius: 50%;
 }
 
-/* 4. SIDEBAR LEFT */
+
+/* =========================================
+   3. LEFT SIDEBAR
+   ========================================= */
+
 .sidebar-left {
     grid-area: left-side;
     padding-top: 20px;
@@ -156,195 +215,51 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     opacity: 1;
 }
 
-/* 5. SIDEBAR RIGHT (The Masterpiece) */
+
+/* =========================================
+   4. MAIN CONTENT AREA
+   ========================================= */
+
+.main-content {
+    grid-area: main-view;
+    background-color: #121212;
+    border-radius: 8px;
+    overflow-y: auto;
+}
+
+
+/* =========================================
+   5. RIGHT SIDEBAR (THE MASTERPIECE)
+   ========================================= */
+
 .sidebar-right {
     grid-area: right-side;
     display: flex;
     flex-direction: column;
     background-color: #121212;
-}
-
-.right-hero-art {
-    width: 100%;
-    height: 350px;
-    background-image: url('https://via.placeholder.com/400x400/222/fff?text=Album+Art'); /* Placeholder */
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    border-radius: 8px 8px 0 0;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(18,18,18,1) 100%);
-    padding: 16px;
-}
-
-.hero-top-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.liked-songs-pill {
-    background: rgba(0,0,0,0.6);
-    padding: 6px 12px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    opacity: 0; /* Hidden by default */
-    transform: translateX(-10px);
-    transition: all 0.3s ease;
-}
-
-.sidebar-right:hover .liked-songs-pill {
-    opacity: 1;
-    transform: translateX(0);
-}
-
-.hero-dots i { margin-left: 15px; }
-
-.right-track-details { padding: 16px; }
-
-.right-track-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 20px;
-}
-
-.track-titles h1 { font-size: 24px; font-weight: 800; letter-spacing: -1px; }
-
-.track-titles p { color: #b3b3b3; font-weight: 600; font-size: 16px; }
-
-.track-actions { display: flex; align-items: center; gap: 15px; font-size: 18px; }
-
-#share-reveal { opacity: 0; transition: 0.2s; }
-
-.sidebar-right:hover #share-reveal { opacity: 1; }
-
-/* --- FORCE ICONS TO BE WHITE --- */
-
-/* 1. The Top Bar Icons (X, Dots, Collapse) */
-.sidebar-right .collapse-trigger,
-.sidebar-right .hero-utility-icons i,
-.sidebar-right .rightsidebar-xmark, 
-.sidebar-right .rightsidebar-ellipsis {
-    color: #ffffff !important;
-    opacity: 1 !important; /* Ensures they aren't faded */
-}
-
-/* 2. The Share and Check Icons (above lyrics) */
-.sidebar-right .track-actions i,
-.sidebar-right .fa-arrow-up-from-bracket,
-.sidebar-right .fa-circle-check {
-    color: #ffffff !important;
-}
-
-/* Exception for the Green Tick if you want it to stay green */
-.sidebar-right .green-tick {
-    color: #1ed760 !important;
-    margin-right: 10px;
-    font-size: 20px;
-}
-
-/* 3. The "Liked Songs" label text (if not an icon) */
-.top-left-label, .liked-songs-pill span {
-    color: #ffffff !important;
-}
-
-
-/* 1. MASTER GRID */
-.grid-container {
-    display: grid; height: 100vh; width: 100vw;
-    grid-template-columns: var(--sidebar-width) 1fr 350px; 
-    grid-template-rows: 64px 1fr 90px; 
-    grid-template-areas: "top-header top-header top-header" "left-side main-view right-side" "bottom-play bottom-play bottom-play";
-    gap: 8px; padding: 8px;
-}
-.sidebar-left, .main-content, .sidebar-right { background-color: #121212; border-radius: 8px; overflow-y: auto; min-height: 0; }
-
-/* 5. SIDEBAR RIGHT - UPDATED SCROLL LOGIC */
-.sidebar-right {
-    grid-area: right-side;
-    display: flex;
-    flex-direction: column;
-    background-color: #121212;
-    overflow-y: auto; /* Enable master scroll */
+    overflow-y: auto;
     overflow-x: hidden;
+    position: relative;
 }
 
-/* This container holds the video and lyrics together as one block */
+/* --- Hero & Media Section --- */
 .media-content-block {
     width: 100%;
     position: relative;
     flex-shrink: 0;
 }
 
+.current-media, 
 .current-video {
     width: 100%;
-    height: 100vh; /* Video fills the first view */
-    object-fit: cover;
-    display: block;
-}
-
-/* Floating Overlays */
-.top-left-label {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    z-index: 15;
-}
-
-.floating-track-info {
-    position: absolute;
-    top: 65vh; /* Positioned relative to video height */
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    z-index: 12;
-}
-
-.song-title { font-size: 32px; font-weight: 800; margin-bottom: 4px; }
-.artist-subtitle { font-size: 18px; color: white; font-weight: 600; }
-
-/* LYRICS BOX - 30px PEAK LOGIC */
-.lyrics-overlay-box {
-    /* Pushes the box so it starts right after the artist name area */
-    margin-top: -180px; 
-    margin-left: 16px;
-    margin-right: 16px;
-    position: relative;
-    z-index: 11;
-    
-    background-color: rgba(106, 4, 15, 0.95);
-    padding: 24px;
-    border-radius: 12px;
-    
-    /* This makes the box peek 30px off the bottom of the first view */
-    margin-bottom: -30px; 
-}
-
-/* Media Image Styling */
-.current-media {
-    width: 100%;
-    height: 100vh; /* Keeps the photo filling the initial view */
+    height: 100vh;
     object-fit: cover;
     display: block;
     position: sticky;
     top: 0;
 }
 
-/* Added a gradient so the top icons and bottom text always pop */
+/* Gradient Overlay for Media */
 .media-content-block::before {
     content: '';
     position: absolute;
@@ -361,31 +276,138 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     pointer-events: none;
 }
 
-/* Ensuring text stays above the gradient */
-.hero-top-controls, 
-.floating-track-info, 
+/* --- Interactive Top Controls --- */
+.hero-top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 20;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 16px 20px;
+}
+
+.top-left-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 15;
+}
+
+.pill-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    transition: gap 0.3s ease;
+}
+
+.collapse-trigger {
+    opacity: 0;
+    width: 0;
+    transition: 0.3s ease;
+    font-size: 14px;
+    color: black;
+}
+
+.liked-songs-pill {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.hero-utility-icons {
+    display: flex;
+    gap: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hero-utility-icons i {
+    font-size: 20px;
+    color: black;
+}
+
+/* Hover Reveals for Sidebar Right */
+.sidebar-right:hover .collapse-trigger { opacity: 1; width: 30px; }
+.sidebar-right:hover .pill-container { gap: 8px; }
+.sidebar-right:hover .hero-utility-icons { opacity: 1; }
+.hero-utility-icons i:hover { transform: scale(1.1); color: black; }
+
+/* --- Floating Track Info (Song & Artist) --- */
+.floating-track-info {
+    position: absolute;
+    top: 65vh;
+    left: 20px;
+    right: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 12;
+}
+
+.song-title {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.artist-subtitle {
+    font-size: 18px;
+    color: white;
+    font-weight: 600;
+}
+
+.fa-circle-check {
+    font-size: 20px;
+    color: #1ed760;
+    margin-right: 15px;
+}
+
+.fa-arrow-up-from-bracket {
+    font-size: 20px;
+}
+
+/* --- Lyrics Box --- */
 .lyrics-overlay-box {
-    z-index: 10;
+    margin-top: -180px;
+    margin-left: 16px;
+    margin-right: 16px;
+    position: relative;
+    z-index: 11;
+    background-color: rgba(106, 4, 15, 0.95);
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: -30px;
 }
 
-/* Rest of your Boilerplate stays exactly the same */
-
-.lyrics-content h5 { font-size: 16px; margin-bottom: 15px; color: #fff; }
-
-.lyrics-text { 
-    font-size: 28px; /* Bigger Font as requested */
-    font-weight: 800; 
-    color: #000; 
-    line-height: 1.2; 
-    margin-bottom: 25px; 
+.lyrics-content h5 {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #fff;
 }
 
-.lyrics-text span { color: #fff; }
+.lyrics-text {
+    font-size: 28px;
+    font-weight: 800;
+    color: #000;
+    line-height: 1.2;
+    margin-bottom: 25px;
+}
 
-/* SHOW MORE - ALIGNED RIGHT */
+.lyrics-text span {
+    color: #fff;
+}
+
 .show-more-wrapper {
     display: flex;
-    justify-content: flex-end; /* Shits button to the right */
+    justify-content: flex-end;
 }
 
 .show-more-btn {
@@ -404,202 +426,7 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     color: black;
 }
 
-/* --- TOP INTERACTIVE BAR --- */
-.hero-top-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    z-index: 20;
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 16px 20px;
-}
-
-/* LEFT SIDE: Collapse Trigger Logic */
-.pill-container {
-    display: flex;
-    align-items: center;
-    gap: 0; /* Starts with no gap */
-    transition: gap 0.3s ease;
-}
-
-.collapse-trigger {
-    opacity: 0;
-    width: 0;
-    font-size: 18px; /* Bigger icon */
-    transition: all 0.3s ease;
-    color:black;
-}
-
-/* Reveal Collapse Icon on Sidebar Hover */
-.sidebar-right:hover .collapse-trigger {
-    opacity: 1;
-    width: 30px;
-    margin-right: 5px;
-}
-
-.liked-songs-pill {
-    background: rgba(0,0,0,0.7);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-/* RIGHT SIDE: Dots & X Logic */
-.hero-utility-icons {
-    display: flex;
-    gap: 20px;
-    opacity: 0; /* Hidden by default */
-    transition: opacity 0.3s ease;
-}
-
-.hero-utility-icons i {
-    font-size: 20px; /* Bigger than text */
-    color: black;
-}
-
-.hero-utility-icons i:hover {
-    color: black;
-    transform: scale(1.1);
-}
-
-/* Reveal Right Icons on Sidebar Hover */
-.sidebar-right:hover .hero-utility-icons {
-    opacity: 1;
-}
-
-/* Add a very long spacer at the end to make it scrollable */
-.bottom-spacer {
-    height: 800px;
-    width: 100%;
-}
-
-/* 2. TOP BAR & SIDEBAR LEFT */
-.top-bar {
-    grid-area: top-header;
-    display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr 350px;
-    align-items: center;
-    padding: 0 16px;
-}
-
-.top-bar-center {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-}
-
-.home-button-wrapper {
-    background: #1f1f1f;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.search-container {
-    background: #1f1f1f;
-    border-radius: 500px;
-    padding: 0 16px;
-    display: flex;
-    align-items: center;
-    height: 48px;
-    width: 100%;
-    max-width: 450px;
-}
-
-.search-container input {
-    background: transparent;
-    border: none;
-    color: white;
-    margin-left: 12px;
-    flex: 1;
-    outline: none;
-}
-
-.top-bar-right {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    align-items: center;
-}
-
-.profile-circle {
-    background: #f57c00;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    position: relative;
-}
-
-
-/* Collapse Icon Logic: Before pill on hover */
-.pill-container {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    transition: gap 0.3s ease;
-}
-
-.collapse-trigger {
-    opacity: 0;
-    width: 0;
-    transition: 0.3s ease;
-    font-size: 14px;
-}
-
-.liked-songs-pill {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.sidebar-right:hover .collapse-trigger {
-    opacity: 1;
-    width: 30px;
-}
-
-.sidebar-right:hover .pill-container {
-    gap: 8px;
-}
-
-.right-track-header {
-    padding: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.track-titles h1 {
-    font-size: 22px;
-    font-weight: 800;
-}
-
-.share-icon {
-    opacity: 0;
-    transition: 0.2s;
-}
-
-.sidebar-right:hover .share-icon {
-    opacity: 1;
-}
-
-
-/* =========================================
-   VIDEO SHELF - FINAL SCROLLABLE VERSION
-   ========================================= */
-
+/* --- Video Shelf Section --- */
 .video-shelf-container {
     margin: 24px 16px;
     padding-top: 10px;
@@ -613,25 +440,23 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
 }
 
 .video-scroll-wrapper {
-    position: relative; /* Container for absolute buttons */
+    position: relative;
 }
 
 .video-scroll-row {
     display: flex;
     gap: 12px;
-    overflow-x: auto; /* Required for scroll functionality */
+    overflow-x: auto;
     scroll-behavior: smooth;
     padding-bottom: 10px;
     width: 100%;
 }
 
-/* Hide scrollbar */
 .video-scroll-row::-webkit-scrollbar { display: none; }
 
-/* --- THE SMALLER SCROLL BUTTONS --- */
 .scroll-btn {
     position: absolute;
-    top: 60px; /* Aligned below the play button center */
+    top: 60px;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -643,47 +468,29 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0; /* Hidden until wrapper hover */
+    opacity: 0;
     transition: opacity 0.3s, background 0.2s, transform 0.1s;
     box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
-.scroll-btn.left 
-{ left: -10px; 
-}
-.scroll-btn.right { 
-    right: 5px; 
-}
+.scroll-btn.left { left: -10px; }
+.scroll-btn.right { right: 5px; }
 
-/* Reveal buttons on wrapper hover */
-.video-scroll-wrapper:hover .scroll-btn {
-    opacity: 1;
-}
+.video-scroll-wrapper:hover .scroll-btn { opacity: 1; }
+.scroll-btn:hover { background: #333; transform: scale(1.1); }
+.scroll-btn i { font-size: 12px; color: white !important; }
 
-.scroll-btn:hover {
-    background: #333;
-    transform: scale(1.1);
-}
-
-.scroll-btn i {
-    font-size: 12px;
-    color: white !important;
-}
-
-/* --- VIDEO CARD STYLING --- */
 .video-thumb-card {
-    min-width: 180px; 
+    min-width: 180px;
     max-width: 180px;
     padding: 12px;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    flex-shrink: 0; /* Crucial: stops cards from squishing */
+    flex-shrink: 0;
 }
 
-.video-thumb-card:hover {
-    background-color: #282828; /* Gray highlight */
-}
+.video-thumb-card:hover { background-color: #282828; }
 
 .video-visual {
     width: 100%;
@@ -694,116 +501,61 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     overflow: hidden;
 }
 
-.video-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+.video-visual img { width: 100%; height: 100%; object-fit: cover; }
 
-/* PLAY BUTTON OVERLAY */
 .video-play-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    opacity: 0;
-    transition: opacity 0.2s ease;
+    display: flex; justify-content: center; align-items: center;
+    opacity: 0; transition: opacity 0.2s ease;
 }
 
-.video-thumb-card:hover .video-play-overlay {
-    opacity: 1;
-}
+.video-thumb-card:hover .video-play-overlay { opacity: 1; }
+.video-play-overlay i { color: white; font-size: 24px; }
 
-.video-play-overlay i {
-    color: white;
-    font-size: 24px;
-}
+.video-meta { margin-top: 10px; }
+.v-title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.v-artist { font-size: 11px; color: #b3b3b3; margin-top: 4px; }
 
-/* TEXT INFO */
-.video-meta {
-    margin-top: 10px;
-}
-
-.v-title {
-    font-size: 13px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.v-artist {
-    font-size: 11px;
-    color: #b3b3b3;
-    margin-top: 4px;
-}
-
-/* --- ARTIST & CREDITS SECTION --- */
+/* --- Artist & Credits Section --- */
 .artist-credits-container {
-    padding: 0 16px 40px 16px; /* Bottom padding for the spacer */
+    padding: 0 16px 40px 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-/* Common Card Styling */
-.about-artist-card, .credits-card {
+.about-artist-card, 
+.credits-card {
     background-color: #242424;
     border-radius: 8px;
     overflow: hidden;
+    width: 300px;
 }
 
-/* About Artist Hero */
 .artist-hero-image {
     width: 100%;
     height: 200px;
     position: relative;
 }
 
-.artist-hero-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+.artist-hero-image img { width: 100%; height: 100%; object-fit: cover; }
 
 .artist-label-overlay {
     position: absolute;
-    top: 12px;
-    left: 12px;
-    font-size: 14px;
-    font-weight: 700;
+    top: 12px; left: 12px;
+    font-size: 14px; font-weight: 700;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
-.artist-card-body {
-    padding: 16px;
-}
+.artist-card-body { padding: 16px; }
+.artist-name-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+.artist-stats { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.monthly-listeners { font-size: 14px; color: #b3b3b3; }
 
-.artist-name-title {
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 8px;
-}
-
-.artist-stats {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-.monthly-listeners {
-    font-size: 14px;
-    color: #b3b3b3;
-}
-
-/* Follow Buttons */
-.follow-btn, .follow-btn-small {
+.follow-btn, 
+.follow-btn-small {
     background: transparent;
     border: 1px solid #727272;
     color: white;
@@ -815,64 +567,169 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
 
 .follow-btn { padding: 6px 16px; font-size: 14px; }
 .follow-btn-small { padding: 4px 12px; font-size: 12px; }
+.follow-btn:hover, .follow-btn-small:hover { border-color: white; transform: scale(1.05); }
+.artist-bio-preview { font-size: 14px; color: #b3b3b3; }
 
-.follow-btn:hover, .follow-btn-small:hover {
-    border-color: white;
-    transform: scale(1.05);
-}
-
-.artist-bio-preview {
-    font-size: 14px;
-    color: #b3b3b3;
-}
-
-/* Credits Styling */
-.credits-card {
-    padding: 16px;
-}
-
-.credits-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
+.credits-card { padding: 16px; }
+.credits-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
 .credits-header h5 { font-size: 16px; font-weight: 700; }
+.show-all-link { font-size: 14px; font-weight: 700; color: #b3b3b3; cursor: pointer; }
+.show-all-link:hover { text-decoration: underline; color: white; }
+.credits-list { display: flex; flex-direction: column; gap: 16px; }
+.credit-item { display: flex; justify-content: space-between; align-items: center; }
+.credit-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.credit-role { font-size: 12px; color: #b3b3b3; }
 
-.show-all-link {
-    font-size: 14px;
-    font-weight: 700;
-    color: #b3b3b3;
+/* Container for the shelf */
+.artist-shelf-container {
+    padding: 16px;
+    position: relative;
+}
+
+.artist-scroll-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Hide scrollbar but keep functionality */
+.artist-scroll-row {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    width: 100%;
+    padding-bottom: 5px;
+}
+
+.artist-scroll-row::-webkit-scrollbar {
+    display: none;
+}
+
+/* Button Styling: Hidden by default (opacity: 0) */
+.artist-scroll-wrapper .scroll-btn {
+    position: absolute;
+    top: 50px; /* Centered on the 100px circles */
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.8);
+    border: none;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0; /* HIDDEN */
+    transition: opacity 0.3s ease, transform 0.2s ease, background 0.2s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+/* Show buttons when the ENTIRE container is hovered */
+.artist-shelf-container:hover .scroll-btn {
+    opacity: 1; /* REVEAL */
+}
+
+.artist-scroll-wrapper .scroll-btn:hover {
+    background: #333;
+    transform: scale(1.1);
+}
+
+.artist-scroll-wrapper .scroll-btn.left { left: -5px; }
+.artist-scroll-wrapper .scroll-btn.right { right: -5px; }
+
+/* Artist Card Styling */
+.artist-circle-card {
+    flex: 0 0 110px;
+    text-align: center;
+    padding: 8px;
+    border-radius: 8px;
     cursor: pointer;
 }
 
-.show-all-link:hover { text-decoration: underline; color: white; }
+.artist-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: #282828;
+}
 
-.credits-list {
+.artist-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.artist-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- On Tour & Queue --- */
+.tour-queue-container {
+    padding: 0 16px 20px 16px;
     display: flex;
     flex-direction: column;
     gap: 16px;
 }
 
-.credit-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.on-tour-card, 
+.queue-card {
+    background-color: #242424;
+    border-radius: 8px;
+    padding: 16px;
 }
 
-.credit-name {
-    font-size: 14px;
+.card-header h5, 
+.queue-header h5 {
+    font-size: 16px;
     font-weight: 700;
-    margin-bottom: 2px;
+    margin-bottom: 16px;
 }
 
-.credit-role {
-    font-size: 12px;
-    color: #b3b3b3;
+.tour-item { display: flex; gap: 16px; align-items: center; }
+
+.date-badge {
+    background-color: #333;
+    width: 50px; height: 55px; border-radius: 4px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 
-/* 6. PLAYER BAR */
+.date-badge .month { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #b3b3b3; }
+.date-badge .day { font-size: 18px; font-weight: 800; color: #fff; }
+
+.tour-details .city-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.tour-details .tour-artist, 
+.tour-details .tour-time { font-size: 13px; color: #b3b3b3; }
+
+.queue-header { display: flex; justify-content: space-between; align-items: center; }
+.open-queue-link { font-size: 14px; font-weight: 700; color: #b3b3b3; cursor: pointer; }
+.open-queue-link:hover { color: #fff; text-decoration: underline; }
+
+.queue-item { display: flex; align-items: center; gap: 12px; }
+.queue-thumb { width: 48px; height: 48px; border-radius: 4px; overflow: hidden; background-color: #333; }
+.queue-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.queue-track-name { font-size: 14px; font-weight: 700; color: #fff; }
+.queue-artist-name { font-size: 12px; color: #b3b3b3; }
+
+/* Sidebar Bottom Spacer */
+.bottom-spacer {
+    height: 800px;
+    width: 100%;
+}
+
+
+/* =========================================
+   6. PLAYER BAR (FOOTER)
+   ========================================= */
+
 .player-bar {
     grid-area: bottom-play;
     display: flex;
@@ -881,6 +738,7 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     padding: 0 16px;
 }
 
+/* Now Playing Widget */
 .now-playing-info {
     display: flex;
     align-items: center;
@@ -905,6 +763,7 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     color: #b3b3b3;
 }
 
+/* Playback Controls */
 .player-controls {
     flex: 1;
     max-width: 722px;
@@ -925,6 +784,7 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     font-size: 35px;
 }
 
+/* Progress Bar */
 .progress-bar-container {
     width: 100%;
     display: flex;
@@ -948,6 +808,7 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     border-radius: 2px;
 }
 
+/* Utility Widgets (Volume, Devices) */
 .player-utilities {
     width: 30%;
     display: flex;
@@ -977,8 +838,29 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     border-radius: 2px;
 }
 
-/* UTILS */
-i { color: #b3b3b3; cursor: pointer; transition: 0.2s; }
-i:hover { color: #fff; }
-::-webkit-scrollbar { width: 12px; }
-::-webkit-scrollbar-thumb { background-color: #4d4d4d; border: 4px solid transparent; background-clip: padding-box; border-radius: 10px; }
+
+/* =========================================
+   7. SPECIFIC OVERRIDES (ICONS & TEXT)
+   ========================================= */
+
+/* Force White Icons in Right Sidebar Context */
+.sidebar-right .collapse-trigger,
+.sidebar-right .hero-utility-icons i,
+.sidebar-right .rightsidebar-xmark, 
+.sidebar-right .rightsidebar-ellipsis,
+.sidebar-right .track-actions i,
+.sidebar-right .fa-arrow-up-from-bracket,
+.sidebar-right .fa-circle-check {
+    color: #ffffff !important;
+}
+
+/* Keep Green Tick Exception */
+.sidebar-right .green-tick {
+    color: #1ed760 !important;
+}
+
+/* Ensure Floating Text labels are white */
+.top-left-label, 
+.liked-songs-pill span {
+    color: #ffffff !important;
+}

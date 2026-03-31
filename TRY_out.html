@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Info Component</title>
+<style>
+.artist-shelf-container {
+    padding: 16px;
+    position: relative;
+}
+
+.artist-scroll-wrapper {
+    position: relative; /* Anchor for absolute buttons */
+    display: flex;
+    align-items: center;
+}
+
+/* Positioning the buttons specifically for the Artist Circles */
+.artist-scroll-wrapper .scroll-btn {
+    position: absolute;
+    top: 50px; /* Aligns them with the vertical center of the 100px circles */
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.artist-scroll-wrapper .scroll-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+.artist-scroll-wrapper .scroll-btn.left { left: -10px; }
+.artist-scroll-wrapper .scroll-btn.right { right: -10px; }
+
+.artist-scroll-row {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+/* Hide scrollbar for Chrome/Safari/Brave */
+.artist-scroll-row::-webkit-scrollbar {
+    display: none;
+}
+
+.artist-circle-card {
+    flex: 0 0 110px; /* Width of the "hit area" */
+    text-align: center;
+    transition: background 0.3s;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.artist-circle-card:hover {
+    background-color: #282828;
+}
+
+.artist-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+.artist-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.artist-card-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+</style>
+</head>
+<body>
+    
+    <aside class="sidebar-right">
+
+<div class="artist-shelf-container">
+    <div class="shelf-header">
+        <h5>Fans also like</h5>
+    </div>
+
+    <div class="artist-scroll-wrapper">
+        <button class="scroll-btn left" id="artistScrollLeft">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button class="scroll-btn right" id="artistScrollRight">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="artist-scroll-row" id="artistRow">
+            <div class="artist-circle-card">
+                <div class="artist-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1" alt="Artist">
+                </div>
+                <p class="artist-card-name">Seedhe Maut</p>
+                <p class="artist-card-type">Artist</p>
+            </div>
+            <div class="artist-circle-card">
+                <div class="artist-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2" alt="Artist">
+                </div>
+                <p class="artist-card-name">Krsna</p>
+                <p class="artist-card-type">Artist</p>
+            </div>
+            <div class="artist-circle-card">
+                <div class="artist-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3" alt="Artist">
+                </div>
+                <p class="artist-card-name">Prabh Deep</p>
+                <p class="artist-card-type">Artist</p>
+            </div>
+            <div class="artist-circle-card">
+                <div class="artist-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=4" alt="Artist">
+                </div>
+                <p class="artist-card-name">Raftaar</p>
+                <p class="artist-card-type">Artist</p>
+            </div>
+            <div class="artist-circle-card">
+                <div class="artist-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=5" alt="Artist">
+                </div>
+                <p class="artist-card-name">Yashraj</p>
+                <p class="artist-card-type">Artist</p>
+            </div>
+            <div class="artist-circle-card">
+                <div class="artist-avatar">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=6" alt="Artist">
+                </div>
+                <p class="artist-card-name">Stan</p>
+                <p class="artist-card-type">Artist</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    </aside>
+
+
+    <script>
+
+        const artistRow = document.getElementById('artistRow');
+        const artistBtnRight = document.getElementById('artistScrollRight');
+        const artistBtnLeft = document.getElementById('artistScrollLeft');
+
+        // Scroll distance should be roughly 2-3 cards per click
+        const scrollAmount = 240; 
+
+        artistBtnRight.addEventListener('click', () => {
+            artistRow.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+
+        artistBtnLeft.addEventListener('click', () => {
+            artistRow.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
