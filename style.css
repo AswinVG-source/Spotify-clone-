@@ -60,21 +60,101 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
     align-items: center; 
     justify-content: center;
 }
+.search-container {
+    background: #1f1f1f;
+    border-radius: 500px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    max-width: 450px;
+}
 
-.search-container { background: #1f1f1f; border-radius: 500px; padding: 0 16px; display: flex; align-items: center; height: 48px; width: 100%; max-width: 450px; }
-.search-container input { background: transparent; border: none; color: white; margin-left: 12px; flex: 1; outline: none; }
-.search-divider { width: 1px; height: 24px; background: #333; margin: 0 12px; }
-.top-bar-right { justify-content: flex-end; gap: 20px; }
-.profile-circle { background: #f57c00; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; position: relative; }
-.profile-circle::after { content: ''; position: absolute; top: 0; right: -2px; width: 10px; height: 10px; background: #4cb3ff; border: 2px solid #000; border-radius: 50%; }
+.search-container input {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-left: 12px;
+    flex: 1;
+    outline: none;
+}
+
+.search-divider {
+    width: 1px;
+    height: 24px;
+    background: #333;
+    margin: 0 12px;
+}
+
+.top-bar-right {
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.profile-circle {
+    background: #f57c00;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+}
+
+.profile-circle::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -2px;
+    width: 10px;
+    height: 10px;
+    background: #4cb3ff;
+    border: 2px solid #000;
+    border-radius: 50%;
+}
 
 /* 4. SIDEBAR LEFT */
-.sidebar-left { grid-area: left-side; padding-top: 20px; display: flex; flex-direction: column; align-items: center; }
-.sidebar-top-controls { display: flex; flex-direction: column; align-items: center; gap: 30px; }
-.library-toggle-group { position: relative; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-#expand-bracket { position: absolute; opacity: 0; transition: 0.2s; }
-.library-toggle-group:hover #library-book { opacity: 0; }
-.library-toggle-group:hover #expand-bracket { opacity: 1; }
+.sidebar-left {
+    grid-area: left-side;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sidebar-top-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.library-toggle-group {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#expand-bracket {
+    position: absolute;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.library-toggle-group:hover #library-book {
+    opacity: 0;
+}
+
+.library-toggle-group:hover #expand-bracket {
+    opacity: 1;
+}
 
 /* 5. SIDEBAR RIGHT (The Masterpiece) */
 .sidebar-right {
@@ -398,26 +478,122 @@ body { background-color: #000; color: #fff; height: 100vh; width: 100vw; overflo
 }
 
 /* 2. TOP BAR & SIDEBAR LEFT */
-.top-bar { grid-area: top-header; display: grid; grid-template-columns: var(--sidebar-width) 1fr 350px; align-items: center; padding: 0 16px; }
-.top-bar-center { display: flex; justify-content: center; gap: 8px; }
-.home-button-wrapper { background: #1f1f1f; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-.search-container { background: #1f1f1f; border-radius: 500px; padding: 0 16px; display: flex; align-items: center; height: 48px; width: 100%; max-width: 450px; }
-.search-container input { background: transparent; border: none; color: white; margin-left: 12px; flex: 1; outline: none; }
-.top-bar-right { display: flex; justify-content: flex-end; gap: 20px; align-items: center; }
-.profile-circle { background: #f57c00; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; position: relative; }
+.top-bar {
+    grid-area: top-header;
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr 350px;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.top-bar-center {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.home-button-wrapper {
+    background: #1f1f1f;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-container {
+    background: #1f1f1f;
+    border-radius: 500px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    height: 48px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.search-container input {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-left: 12px;
+    flex: 1;
+    outline: none;
+}
+
+.top-bar-right {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    align-items: center;
+}
+
+.profile-circle {
+    background: #f57c00;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    position: relative;
+}
 
 
 /* Collapse Icon Logic: Before pill on hover */
-.pill-container { display: flex; align-items: center; gap: 0; transition: gap 0.3s ease; }
-.collapse-trigger { opacity: 0; width: 0; transition: 0.3s ease; font-size: 14px; }
-.liked-songs-pill { background: rgba(0,0,0,0.7); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-.sidebar-right:hover .collapse-trigger { opacity: 1; width: 30px; }
-.sidebar-right:hover .pill-container { gap: 8px; }
+.pill-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    transition: gap 0.3s ease;
+}
 
-.right-track-header { padding: 16px; display: flex; justify-content: space-between; align-items: flex-start; }
-.track-titles h1 { font-size: 22px; font-weight: 800; }
-.share-icon { opacity: 0; transition: 0.2s; }
-.sidebar-right:hover .share-icon { opacity: 1; }
+.collapse-trigger {
+    opacity: 0;
+    width: 0;
+    transition: 0.3s ease;
+    font-size: 14px;
+}
+
+.liked-songs-pill {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.sidebar-right:hover .collapse-trigger {
+    opacity: 1;
+    width: 30px;
+}
+
+.sidebar-right:hover .pill-container {
+    gap: 8px;
+}
+
+.right-track-header {
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.track-titles h1 {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.share-icon {
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.sidebar-right:hover .share-icon {
+    opacity: 1;
+}
 
 
 /* =========================================
