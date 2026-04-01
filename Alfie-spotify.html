@@ -6,7 +6,8 @@
     <title>Alphy Player - Desktop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="JAVASCRIPT/main.js" defer ></script>
+    <script src="JAVASCRIPT/ScrollUtils.js" defer ></script>
+    
 </head>
 <body>
 
@@ -454,8 +455,13 @@
                 <i class="fa-solid fa-forward-step"></i>
                 <i class="fa-solid fa-repeat"></i>
             </div>
+            
             <div class="progress-bar-container">
-                <div class="progress-rail"><div class="progress-fill"></div></div>
+                <span id="current-time">0:00</span>
+                    <div class="progress-rail">
+                        <div class="progress-fill"></div>
+                    </div>
+                <span id="total-duration">0:00</span>
             </div>
         </div>
 
@@ -476,6 +482,6 @@
 </div>
 
 
-
+<script src="JAVASCRIPT/footer.js" defer></script>
 </body>
 </html>

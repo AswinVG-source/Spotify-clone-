@@ -1288,7 +1288,7 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
 }
 
 .progress-fill {
-    width: 30%;
+    width: 0%;
     height: 100%;
     background: #1ed760;
     border-radius: 2px;
