@@ -5,115 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Song Info Component</title>
 <style>
-:root {
-    --sidebar-left-width: 280px;
-    --sidebar-left-collapsed: 72px; /* Spotify's icon-only width */
-}
+/* =========================================
+    3. LEFT SIDEBAR - THE PRO FIX
+   ========================================= */
 
-/* Update the Grid to handle Left Collapse */
-.grid-container {
-    display: grid;
-    /* We use the variables here so they can be changed via JS/Classes */
-    grid-template-columns: var(--sidebar-left-width) 1fr var(--right-sidebar-width);
-    grid-template-rows: 64px 1fr 90px;
-    transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* State: Left Sidebar Collapsed */
-body.left-sidebar-collapsed .grid-container {
-    grid-template-columns: var(--sidebar-left-collapsed) 1fr var(--right-sidebar-width);
-}
-
-/* State: BOTH Sidebars Collapsed (Main Area is Massive) */
-body.left-sidebar-collapsed.right-sidebar-collapsed .grid-container {
-    grid-template-columns: var(--sidebar-left-collapsed) 1fr 12px;
-}
-
-/* --- Left Sidebar Styling --- */
 .sidebar-left {
     grid-area: left-side;
-    overflow-x: hidden;
-    padding: 12px;
+    background-color: #121212;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 12px 8px;
 }
 
-/* Hide text labels when collapsed */
-.nav-text {
-    white-space: nowrap;
-    opacity: 1;
-    transition: opacity 0.2s ease;
-}
-
-body.left-sidebar-collapsed .nav-text {
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* Style the library items to look like Spotify icons */
-.library-item, .library-toggle-group, .add-playlist {
+/* Header Setup */
+.library-header {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 8px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.2s;
+    justify-content: space-between;
+    padding: 8px 12px;
+    height: 48px;
 }
 
-.library-item:hover { background: #282828; }
-
-.item-icon {
-    width: 48px;
-    height: 48px;
-    flex-shrink: 0; /* Prevents icon from squishing */
-    border-radius: 4px;
+.library-toggle-wrapper {
+    position: relative;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #282828;
+    cursor: pointer;
+}
+
+/* HOVER LOGIC: Hide book, show bracket when collapsed */
+#left-state-btn {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+body:not(.left-sidebar-expanded) .library-toggle-wrapper:hover #library-book-main {
+    opacity: 0;
+}
+
+body:not(.left-sidebar-expanded) .library-toggle-wrapper:hover #left-state-btn {
+    opacity: 1;
+}
+
+/* EXPANDED STATE UI (Image 2) */
+body.left-sidebar-expanded .library-title,
+body.left-sidebar-expanded .row-meta,
+body.left-sidebar-expanded .collapse-icon-expanded {
+    display: flex;
+    opacity: 1;
+}
+
+/* COLLAPSED STATE UI (Image 3) */
+body:not(.left-sidebar-expanded) .library-title,
+body:not(.left-sidebar-expanded) .row-meta,
+body:not(.left-sidebar-expanded) .collapse-icon-expanded {
+    display: none;
+}
+
+/* THE ARROW FLIP (Points Left when Open) */
+body.left-sidebar-expanded #left-collapse-btn {
+    transform: rotate(180deg);
+    cursor: pointer;
+}
+
+/* Row Items alignment */
+.library-row-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.library-row-item:hover { background-color: #2a2a2a; }
+
+.row-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 4px;
     overflow: hidden;
 }
 
-.item-icon img { width: 100%; height: 100%; object-fit: cover; }
-.liked-bg { background: linear-gradient(135deg, #450af5, #c4efd9); }
+.row-icon img { width: 100%; height: 100%; object-fit: cover; }
+
+.row-meta {
+    flex-direction: column;
+}
+
+.row-title { font-size: 14px; font-weight: 600; color: #fff; }
+.row-subtitle { font-size: 12px; color: #b3b3b3; }
 </style>
 </head>
     <body>
         
 <aside class="sidebar-left">
-    <div class="sidebar-left-content">
-        <div class="sidebar-top-controls">
-            <div class="library-toggle-group">
-                <i class="fa-solid fa-book-open" id="library-toggle-btn"></i>
-                <span class="nav-text">Your Library</span>
+    <div class="sidebar-library-panel">
+        <div class="library-header">
+            <div class="header-left">
+                <div class="library-toggle-wrapper">
+                    <i class="fa-solid fa-book-open" id="library-book-main"></i>
+                    <i class="fa-solid fa-right-to-bracket state-trigger" id="left-state-btn"></i>
+                </div>
+                <span class="library-title">Your Library</span>
             </div>
-            <div class="add-playlist">
+            
+            <div class="header-right">
                 <i class="fa-solid fa-plus"></i>
-                <span class="nav-text">Create Playlist</span>
+                <i class="fa-solid fa-right-to-bracket collapse-icon-expanded" id="left-collapse-btn"></i>
             </div>
         </div>
 
-        <div class="library-list">
-            <div class="library-item">
-                <div class="item-icon liked-bg"><i class="fa-solid fa-heart"></i></div>
-                <span class="nav-text">Liked Songs</span>
+        <div class="library-content">
+            <div class="library-row-item">
+                <div class="row-icon liked-gradient"><i class="fa-solid fa-heart"></i></div>
+                <div class="row-meta">
+                    <span class="row-title">Liked Songs</span>
+                    <span class="row-subtitle">Playlist • 448 songs</span>
+                </div>
             </div>
-            <div class="library-item">
-                <div class="item-icon"><img src="Utils/playlist1.jpg"></div>
-                <span class="nav-text">Hip Hop Mix</span>
+            <div class="library-row-item">
+                <div class="row-icon"><img src="Utils/this-is-the-weeknd.jpg"></div>
+                <div class="row-meta">
+                    <span class="row-title">This Is The Weeknd</span>
+                    <span class="row-subtitle">Playlist • Spotify</span>
+                </div>
             </div>
-            </div>
+        </div>
     </div>
 </aside>
 
         <script>
+            
+            // Toggle logic for BOTH buttons
+            const stateTrigger = document.getElementById('left-state-btn'); // The hover one
+            const collapseTrigger = document.getElementById('left-collapse-btn'); // The expanded one
 
-            const leftToggleBtn = document.getElementById('library-toggle-btn');
-
-            leftToggleBtn.addEventListener('click', () => {
-                // Toggle the class on the body
-                body.classList.toggle('left-sidebar-collapsed');
+            [stateTrigger, collapseTrigger].forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        document.body.classList.toggle('left-sidebar-expanded');
+                    });
+                }
             });
 
         </script>

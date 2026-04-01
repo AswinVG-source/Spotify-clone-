@@ -1,9 +1,10 @@
 /* =========================================
-    1. GLOBAL & ALL-PURPOSE STYLES
-    ========================================= */
+    1. GLOBAL & DYNAMIC GRID
+   ========================================= */
 :root {
-    --sidebar-width: 70px;
-    --right-sidebar-width: 350px;
+    /* DEFAULT STATE VALUES (Starting as Icon View & Open View) */
+    --sidebar-left-width: 72px;    
+    --sidebar-right-width: 350px;
 }
 
 * {
@@ -21,31 +22,13 @@ body {
     overflow: hidden;
 }
 
-/* COLLAPSED STATE: This forces the main area to take the space */
-body.right-sidebar-collapsed .grid-container {
-    grid-template-columns: var(--sidebar-width) 1fr 12px;
-}
-
-.sidebar-left,
-.main-content,
-.sidebar-right {
-    background-color: #121212;
-    border-radius: 8px;
-    min-height: 0;
-}
-
-.main-content {
-    grid-area: main-view;
-    overflow-y: auto;
-}
-
 /* Master Layout Grid */
 .grid-container {
     display: grid;
     height: 100vh;
     width: 100vw;
-    /* DEFAULT STATE: Defined here */
-    grid-template-columns: var(--sidebar-width) 1fr var(--right-sidebar-width);
+    /* Using variables for both sidebars so we can toggle them */
+    grid-template-columns: var(--sidebar-left-width) 1fr var(--sidebar-right-width);
     grid-template-rows: 64px 1fr 90px;
     grid-template-areas:
         "top-header  top-header  top-header"
@@ -54,6 +37,34 @@ body.right-sidebar-collapsed .grid-container {
     gap: 8px;
     padding: 8px;
     transition: grid-template-columns 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- THE MASTER OVERRIDES --- */
+
+/* 1. Expand Left Sidebar (Triggered by your Library Toggle) */
+body.left-sidebar-expanded {
+    --sidebar-left-width: 280px;
+}
+
+/* 2. Collapse Right Sidebar (Triggered by your Right Bracket) */
+body.right-sidebar-collapsed {
+    --sidebar-right-width: 12px; /* The thin strip */
+}
+
+/* Common Panel Styling */
+.sidebar-left,
+.main-content,
+.sidebar-right {
+    background-color: #121212;
+    border-radius: 8px;
+    min-height: 0;
+    position: relative;
+    overflow-x: hidden; /* Stops content from spilling during transitions */
+}
+
+.main-content {
+    grid-area: main-view;
+    overflow-y: auto;
 }
 /* General Panel Styling */
 .sidebar-left,
@@ -88,40 +99,62 @@ i:hover {
     color: #fff;
 }
 
-
 /* =========================================
-   2. HEADER (TOP BAR)
+   2. HEADER (TOP BAR) - FIXED ALIGNMENT
    ========================================= */
 
 .top-bar {
     grid-area: top-header;
     display: grid;
-    grid-template-columns: var(--sidebar-width) 1fr 350px;
+    /* Keeps columns synchronized with the master layout */
+    grid-template-columns: var(--sidebar-left-width) 1fr var(--sidebar-right-width);
     align-items: center;
-    padding: 0 16px;
+    padding: 0; /* Padding is handled by individual sections now */
+    width: 100%;
+    z-index: 100;
 }
 
-.top-bar-left,
-.nav-arrows,
-.top-bar-center,
-.top-bar-right {
+/* LEFT SECTION (Arrows & Ellipsis) - FIXED TO LEFT */
+.top-bar-left {
+    grid-column: 1;
     display: flex;
     align-items: center;
-}
-
-.top-bar-left {
+    justify-content: flex-start; /* Forces icons to the left */
+    padding-left: 24px; /* Fixed distance from the screen edge */
     gap: 20px;
+    min-width: 0;
 }
 
-.nav-arrows {
-    gap: 15px;
-}
-
+/* CENTER SECTION (Home & Search) */
 .top-bar-center {
+    grid-column: 2;
+    display: flex;
+    align-items: center;
     justify-content: center;
     gap: 8px;
+    min-width: 0;
 }
 
+/* RIGHT SECTION (Bell, Users, Profile) */
+.top-bar-right {
+    grid-column: 3;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    padding-right: 24px; /* Fixed distance from the right edge */
+    min-width: 0;
+}
+
+/* --- THE NO-SQUISH COMMAND --- */
+.top-bar i, 
+.sidebar-left i, 
+.item-icon, 
+.row-icon {
+    flex-shrink: 0 !important;
+}
+
+/* Search bar stability */
 .home-button-wrapper {
     background: #1f1f1f;
     width: 48px;
@@ -130,6 +163,7 @@ i:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
 }
 
 .search-container {
@@ -141,6 +175,7 @@ i:hover {
     height: 48px;
     width: 100%;
     max-width: 450px;
+    flex-shrink: 1;
 }
 
 .search-container input {
@@ -149,23 +184,11 @@ i:hover {
     color: white;
     margin-left: 12px;
     flex: 1;
+    width: 0;
     outline: none;
 }
 
-.search-divider {
-    width: 1px;
-    height: 24px;
-    background: #333;
-    margin: 0 12px;
-}
-
-.top-bar-right {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    align-items: center;
-}
-
+/* Profile Circle */
 .profile-circle {
     background: #f57c00;
     width: 32px;
@@ -175,65 +198,131 @@ i:hover {
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    flex-shrink: 0;
     position: relative;
 }
 
-.profile-circle::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: -2px;
-    width: 10px;
-    height: 10px;
-    background: #4cb3ff;
-    border: 2px solid #000;
-    border-radius: 50%;
+.nav-arrows {
+    display: flex;
+    gap: 15px;
+    flex-shrink: 0;
 }
-
-
 /* =========================================
-   3. LEFT SIDEBAR
+    3. LEFT SIDEBAR - REFINED
    ========================================= */
 
 .sidebar-left {
     grid-area: left-side;
-    padding-top: 20px;
+    background-color: #121212;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- COLLAPSED STATE (The default) --- */
+body:not(.left-sidebar-expanded) .sidebar-left {
+    align-items: center;
+    padding: 20px 0;
+}
+
+body:not(.left-sidebar-expanded) .header-icons-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 40px; /* The gap you liked */
+    margin-bottom: 30px;
 }
 
-.sidebar-top-controls {
+body:not(.left-sidebar-expanded) .sidebar-left i {
+    font-size: 22px !important;
+}
+
+/* Hide text elements when collapsed */
+body:not(.left-sidebar-expanded) .library-title,
+body:not(.left-sidebar-expanded) .row-meta,
+body:not(.left-sidebar-expanded) .collapse-icon-expanded {
+    display: none;
+}
+
+/* --- EXPANDED STATE --- */
+body.left-sidebar-expanded .sidebar-left {
+    padding: 12px 16px;
+    align-items: flex-start;
+}
+
+body.left-sidebar-expanded .library-header {
     display: flex;
-    flex-direction: column;
+    width: 100%;
+    justify-content: space-between;
     align-items: center;
-    gap: 30px;
+    margin-bottom: 20px;
 }
 
-.library-toggle-group {
+body.left-sidebar-expanded .header-icons-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+body.left-sidebar-expanded .sidebar-left i {
+    font-size: 18px !important;
+}
+
+/* --- INTERACTION LOGIC --- */
+.library-toggle-wrapper {
     position: relative;
-    width: 30px;
-    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
 }
 
-#expand-bracket {
+#left-state-btn {
     position: absolute;
     opacity: 0;
-    transition: 0.2s;
+    transition: opacity 0.2s;
 }
 
-.library-toggle-group:hover #library-book {
-    opacity: 0;
+/* Hover reveal for the bracket */
+body:not(.left-sidebar-expanded) .library-toggle-wrapper:hover #library-book-main { opacity: 0; }
+body:not(.left-sidebar-expanded) .library-toggle-wrapper:hover #left-state-btn { opacity: 1; }
+
+/* Flip the bracket when expanded to show "Collapse" */
+body.left-sidebar-expanded #left-collapse-btn {
+    transform: rotate(180deg);
 }
 
-.library-toggle-group:hover #expand-bracket {
-    opacity: 1;
+/* --- CONTENT ROWS --- */
+.library-row-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 0;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
+body:not(.left-sidebar-expanded) .library-row-item {
+    justify-content: center;
+}
+
+.row-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    background-color: #282828;
+}
+
+.row-icon img { width: 100%; height: 100%; object-fit: cover; }
+.liked-gradient { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #450af5, #c4efd9); }
+
+.row-meta { flex-direction: column; }
+.row-title { font-size: 14px; font-weight: 600; color: #fff; }
+.row-subtitle { font-size: 12px; color: #b3b3b3; }
 
 /* =========================================
    4. MAIN CONTENT AREA
@@ -820,7 +909,7 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
 
 
 /* =========================================
-   6. PLAYER BAR (FOOTER)
+   6. PLAYER BAR (FOOTER) - ALIGNED
    ========================================= */
 
 .player-bar {
@@ -828,7 +917,7 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 16px;
+    padding: 0 16px; /* Reset padding to standard */
 }
 
 /* Now Playing Widget */
@@ -837,13 +926,21 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
     align-items: center;
     gap: 12px;
     width: 30%;
+    margin-left: -10px;
 }
 
 .mini-art {
+    /* 56px is slightly larger than the 48px library images for hierarchy */
     width: 56px;
     height: 56px;
     background: #282828;
     border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.track-text {
+    display: flex;
+    flex-direction: column;
 }
 
 .track-name {
@@ -863,7 +960,8 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    /* Added more gap here to remove the "cramped" feel */
+    gap: 12px; 
 }
 
 .control-buttons {
@@ -888,6 +986,7 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
 }
 
 .progress-rail {
+    margin-top:10px;
     flex: 1;
     height: 4px;
     background: #4d4d4d;
@@ -930,8 +1029,6 @@ body.right-sidebar-collapsed .sidebar-right-collapsed-bar {
     background: #fff;
     border-radius: 2px;
 }
-
-
 /* =========================================
    7. SPECIFIC OVERRIDES (ICONS & TEXT)
    ========================================= */
