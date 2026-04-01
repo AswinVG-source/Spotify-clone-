@@ -6,7 +6,7 @@
     <title>Alphy Player - Desktop</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script src="JAVASCRIPT/Scripts.js" defer ></script>
+    <script src="JAVASCRIPT/main.js" defer ></script>
 </head>
 <body>
 
@@ -81,11 +81,143 @@
     </div>
 </aside>
   
-    <main class="main-content">
-        <div class="content-spacer">
-            <h3>Good Afternoon</h3>
+<main class="main-content">
+    <div class="content-wrapper">
+        <div class="filter-chips">
+            <button type="button" class="chip active">All</button>
+            <button type="button" class="chip">Music</button>
+            <button type="button" class="chip">Podcasts</button>
         </div>
-    </main>
+
+        <section class="shortcuts-section">
+
+            <div class="shortcut-card">
+                <div class="card-img liked-gradient"><i class="fa-solid fa-heart"></i></div>
+                <span>Liked Songs</span>
+            </div>
+
+
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+
+
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+            
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+            
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+            
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+            
+            <div class="shortcut-card">
+                <div class="card-img"><img src="Utils/mega-hit-mix.jpg"></div>
+                <span>Mega Hit Mix</span>
+            </div>
+
+        </section>
+
+
+        <section class="shelf-section">
+            <div class="shelf-header">
+                <div>
+                    <p class="shelf-label">Made For</p>
+                    <h2 class="shelf-title">Aswin</h2>
+                </div>
+                <span class="show-all">Show all</span>
+            </div>
+
+            <div class="slider-container">
+                <button class="scroll-btn prev" id="shelf-prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="scroll-btn next" id="shelf-next"><i class="fa-solid fa-chevron-right"></i></button>
+
+                <div class="card-grid" id="playlist-slider">
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 1</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 2</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 3</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 4</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 5</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 6</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 7</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                     <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 8</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                     <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 9</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                     <div class="playlist-card">
+                        <img src="Utils/daily-mix-1.jpg">
+                        <div class="card-play-btn"><i class="fa-solid fa-play"></i></div>
+                        <h4>Daily Mix 10</h4>
+                        <p>Pritam, Arijit Singh, Aditya Rikhari...</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+</main>
   
 <aside class="sidebar-right">
 
