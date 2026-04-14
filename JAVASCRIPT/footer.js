@@ -40,7 +40,7 @@ audio.addEventListener('timeupdate', () => {
 
         // Update the numbers (0:00)
         currentTimeEl.innerText =  formatTime (audio.currentTime);
-        durationEl.innerText = foratTime(audio.duration);
+        durationEl.innerText = formaTime(audio.duration);
     }
 });
 
