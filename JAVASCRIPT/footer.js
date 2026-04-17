@@ -1,70 +1,65 @@
-///""""""""""""""""""""""""""""""""
-// THE PLAY/PAUSE BUTTON LOGIC and the sng skipping BAR Logic 
-//""""""""""""""""""""""""""""""""""
+// Updated footer.js for Spotify Clone
 
-
-// 1. Setup the Audio and Elements
-const audio = new Audio("Utils/Sundari Onnu Parayu x Take My Breath - Noyal Augustine x Jimmy Godrick Mashup.mp3");
-const playBtn = document.getElementById('play-main');
-const progressFill = document.querySelector('.progress-fill');
-const progressRail = document.querySelector('.progress-rail');
-const currentTimeEl = document.getElementById('current-time');
-const durationEl = document.getElementById('total-duration');
-
-let isPlaying = false;
-
-// 2. Format Time Helper (Converts seconds to 0:00 format)
+// Function to format time
 function formatTime(seconds) {
-    const min = Math.floor(seconds / 60);
-    const sec = Math.floor(seconds % 60);
-    return `${min}:${sec < 10 ? '0' + sec : sec}`;
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
 }
 
-// 3. Play/Pause Toggle
-playBtn.addEventListener('click', () => {
-    if (audio.paused) {
-        audio.play();
-        playBtn.classList.replace('fa-circle-play', 'fa-circle-pause');
-    } else {
-        audio.pause();
-        playBtn.classList.replace('fa-circle-pause', 'fa-circle-play');
-    }
-});
+// Complete player functionality
+const audio = new Audio();
+let currentTrackIndex = 0;
+const tracks = []; // This will hold track data fetched from the backend
 
-// 4. Update Progress Bar and Time Labels
-audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-        // Calculate percentage for the bar
-        const percentage = (audio.currentTime / audio.duration) * 100;
-        progressFill.style.width = `${percentage}%`;
-
-        // Update the numbers (0:00)
-        currentTimeEl.innerText =  formatTime (audio.currentTime);
-        durationEl.innerText = formaTime(audio.duration);
-    }
-});
-
-progressRail.addEventListener('click', (e) => {
-// 1. Get the exact position and width of the gray bar on the screen
-const rect = progressRail.getBoundingClientRect();
-
-// 2. Calculate the click position relative to the START of the bar
-// (Mouse X position - Bar's Left position = Exact point in the bar)
-const clickX = e.clientX - rect.left;
-
-// 3. Get the total width of the bar
-const width = rect.width;
-
-const duration = audio.uration;
-
-if (duration) {
-    // 4. Set the time (Click point / Width * Total Seconds)
-    audio.currentTime = (clickX / width) * duration;
+// API request to fetch songs
+async function fetchSongs() {
+    const response = await fetch('YOUR_API_ENDPOINT'); // Replace with your API endpoint
+    const data = await response.json();
+    tracks.push(...data);
+    loadTrack(currentTrackIndex);
 }
-});
 
-// 6. Handle Song End (Reset button)
-audio.addEventListener('ended', () => {
-    playBtn.classList.replace('fa-circle-pause', 'fa-circle-play');
-    progressFill.style.width = '0%';
-});
+function loadTrack(index) {
+    audio.src = tracks[index]?.url; // Assuming each track object has a 'url' property
+    audio.load();
+}
+
+function playTrack() {
+    audio.play();
+}
+
+function pauseTrack() {
+    audio.pause();
+}
+
+function nextTrack() {
+    currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+    loadTrack(currentTrackIndex);
+    playTrack();
+}
+
+function previousTrack() {
+    currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+    loadTrack(currentTrackIndex);
+    playTrack();
+}
+
+function shuffleTracks() {
+    tracks.sort(() => Math.random() - 0.5);
+}
+
+function repeatTrack() {
+    audio.currentTime = 0;
+    playTrack();
+}
+
+// Event listeners for buttons
+document.getElementById('play').addEventListener('click', playTrack);
+document.getElementById('pause').addEventListener('click', pauseTrack);
+document.getElementById('next').addEventListener('click', nextTrack);
+document.getElementById('previous').addEventListener('click', previousTrack);
+// Add shuffle and repeat button listeners similarly
+
+// Initial fetch
+fetchSongs();
